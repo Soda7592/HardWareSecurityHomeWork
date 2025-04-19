@@ -48,11 +48,11 @@ module AES_top_tb_2();
 
     // Monitor signals
     initial begin
-        $display("Time=%t, cycle_count=%d", $time, dut.cycle_count);
+        $display("Time=%t", $time); //cycle_count=%d", $time);, dut.cycle_count);
     end
 
     always @(rst, key, out) begin
-            $display("Time=%t, cycle_count=%d", $time, dut.cycle_count);
+            $display("Time=%t", $time); //cycle_count=%d", $time, dut.cycle_count);
     end
 
     initial begin

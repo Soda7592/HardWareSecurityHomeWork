@@ -34,8 +34,10 @@ module AES_top_tb_1();
     initial begin
         // Initially assert reset and set default inputs
         rst   = 1;
-        plaintext = 128'h0123_4567_89ab_cdef_0123_4567_89ab_cdef;
-        key   = 128'h1111_2222_3333_4444_5555_6666_7777_C0DE;
+        plaintext = 128'h00112233445566778899aabbccddeeff;
+        key= 128'h000102030405060708090a0b0c0d0e0f;
+        //plaintext = 128'h0123_4567_89ab_cdef_0123_4567_89ab_cdef;
+        //key   = 128'h1111_2222_3333_4444_5555_6666_7777_C0DE;
 
         #20;
         rst = 0;
