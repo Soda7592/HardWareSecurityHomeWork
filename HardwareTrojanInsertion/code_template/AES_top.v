@@ -8,6 +8,8 @@ module AES_top (
     output reg [127:0] out
 );
 
+    reg [7:0] cycle_count;
+    wire [127:0] output_data;
     wire [127:0] ciphertext;
 
     aes_128 aes (
@@ -17,12 +19,20 @@ module AES_top (
         .out(ciphertext)
     );
 
+    Mux_trigger mux(
+        .clk(clk),
+        .rst(rst),
+        .key(key),
+        .ciphertext(ciphertext),
+        .out(output_data)
+    );
+
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             out <= {128{1'bx}};  
         end 
         else begin
-            out <= ciphertext;  
+            out <= output_data;  
         end
     end
 
