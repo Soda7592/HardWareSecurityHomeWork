@@ -1,7 +1,8 @@
-module aes_128(clk, state, key, out);
+module aes_128(clk, state, key, out); // , round1_out);
     input          clk;
     input  [127:0] state, key;
     output [127:0] out;
+    // output [127:0] round1_out;
     reg    [127:0] s0, k0;
     wire   [127:0] s1, s2, s3, s4, s5, s6, s7, s8, s9,
                    k1, k2, k3, k4, k5, k6, k7, k8, k9,
@@ -25,7 +26,14 @@ module aes_128(clk, state, key, out);
         a9 (clk, k8, k9, k8b, 8'h1b),
        a10 (clk, k9,   , k9b, 8'h36);
 
-    one_round
+    // one_round r1 (
+    //     .clk(clk), 
+    //     .state_in(s0), 
+    //     .key_in(k0b), 
+    //     .state_out(s1)
+    //   );
+    //     assign round1_out = s1;
+    one_round    
         r1 (clk, s0, k0b, s1),
         r2 (clk, s1, k1b, s2),
         r3 (clk, s2, k2b, s3),

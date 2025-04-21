@@ -3,7 +3,7 @@
 module Mix_tb;
   reg         clk;
   reg  [127:0] plaintext;
-  wire [31:0] mix_out;
+  wire [127:0] mix_out;
 
   mixcol UUT (
     .clk(clk),

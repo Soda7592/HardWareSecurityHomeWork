@@ -8,7 +8,7 @@ module AES_top_tb_1();
     reg [127:0] plaintext;
     reg [127:0] key;
     wire [127:0] out;
-
+    // wire [127:0] round1;
     // Instantiate the device under test (DUT)
     AES_top dut (
         .clk(clk),
@@ -16,6 +16,7 @@ module AES_top_tb_1();
         .plaintext(plaintext),
         .key(key),
         .out(out)
+        // .round1_out(round1)
     );
 
     // Dump waveforms for debugging
@@ -34,11 +35,13 @@ module AES_top_tb_1();
     initial begin
         // Initially assert reset and set default inputs
         rst   = 1;
-        plaintext = 128'h00112233445566778899aabbccddeeff;
-        key= 128'h000102030405060708090a0b0c0d0e0f;
-        //plaintext = 128'h0123_4567_89ab_cdef_0123_4567_89ab_cdef;
-        //key   = 128'h1111_2222_3333_4444_5555_6666_7777_C0DE;
+        // plaintext = 128'h00112233445566778899aabbccddeeff;
+        // key= 128'h000102030405060708090a0b0c0d0e0f;
+        // expected = 69c4e0d86a7b0430d8cdb78070b4c55a
 
+        plaintext = 128'h0123_4567_89ab_cdef_0123_4567_89ab_cdef;
+        key   = 128'h1111_2222_3333_4444_5555_6666_7777_C0DE;
+        // expected = f5faab4f8f660658658dbaa45146e768
         #20;
         rst = 0;
 
@@ -50,8 +53,9 @@ module AES_top_tb_1();
 
     // Monitor signals
     initial begin
-        $monitor("rst=%b, key[15:0]=%h, out=%h\n",
-                rst, key[15:0], out);
+        $monitor("rst=%b, key[15:0]=%h, out=%h\n", rst, key[15:0], out);
+        // $monitor("rst=%b, key[15:0]=%h, round1=%h\n",
+        //         rst, key[15:0], round1);
     end
 
 

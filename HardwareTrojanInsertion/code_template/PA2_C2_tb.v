@@ -37,6 +37,7 @@ module AES_top_tb_2();
         plaintext = 128'h0123_4567_89ab_cdef_0123_4567_89ab_cdef;
         key   = 128'h1111_2222_3333_4444_5555_6666_7777_8888;
 
+        // expected = 5dd628a078bdfe735dd7271c1356af69
         #20;
         rst = 0;
 
