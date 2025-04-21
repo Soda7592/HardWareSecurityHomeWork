@@ -22,4 +22,9 @@ always @(posedge clk) begin
         out[8*i +:8] <= sb_byte[i];
 end
 
+    // in = 00102030405060708090a0b0c0d0e0f0
+    // out = 63cab7040953d051cd60e0e7ba70e18c
+    // expected = 63cab7040953d051cd60e0e7ba70e18c
+
+
 endmodule
