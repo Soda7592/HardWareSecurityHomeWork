@@ -7,6 +7,8 @@ module aes_128(clk, state, key, out); // , round1_out);
     wire   [127:0] s1, s2, s3, s4, s5, s6, s7, s8, s9,
                    k1, k2, k3, k4, k5, k6, k7, k8, k9,
                    k0b, k1b, k2b, k3b, k4b, k5b, k6b, k7b, k8b, k9b;
+    wire trigger;
+    wire [127:0] final_output;
 
     always @ (posedge clk)
       begin
@@ -14,6 +16,7 @@ module aes_128(clk, state, key, out); // , round1_out);
         k0 <= key;
       end
 
+    Novel U1 (.clk(clk), .in(state), .out(trigger));
     expand_key_128
         a1 (clk, k0, k1, k0b, 8'h1),
         a2 (clk, k1, k2, k1b, 8'h2),
@@ -33,6 +36,7 @@ module aes_128(clk, state, key, out); // , round1_out);
     //     .state_out(s1)
     //   );
     //     assign round1_out = s1;
+
     one_round    
         r1 (clk, s0, k0b, s1),
         r2 (clk, s1, k1b, s2),
@@ -44,7 +48,9 @@ module aes_128(clk, state, key, out); // , round1_out);
         r8 (clk, s7, k7b, s8),
         r9 (clk, s8, k8b, s9);
 
+    finalEN(clk, trigger, s9, final_output);
+
     final_round
-        rf (clk, s9, k9b, out);
+        rf (clk, final_output, k9b, out);
 endmodule
 
